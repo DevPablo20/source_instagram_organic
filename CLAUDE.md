@@ -246,6 +246,7 @@ Facebook) consumindo o conector oficial. Trocar o conector é mudança lá, não
 | Arquivo | Quando ler |
 |---|---|
 | [docs/docs.md](docs/docs.md) | links e extratos: Instagram Platform API, CDK, destino S3, limites, permissões e achados de API |
+| [docs/airbyte.md](docs/airbyte.md) | **guia de uso do source**: o que cada stream significa para o negócio, métricas e como configurar — é o `documentationUrl` do conector |
 | [docs/streams.md](docs/streams.md) | **contrato de cada stream**: campos, lista de métricas, modelo de escopo (orgânico × impulsionado) e chaves |
 | [docs/metrics.md](docs/metrics.md) | quais métricas respondem hoje, por tipo de mídia, e o que cada uma significa |
 | [docs/plans/connector-v1.md](docs/plans/connector-v1.md) | decisões fechadas e pendentes, próxima ação, medições datadas |

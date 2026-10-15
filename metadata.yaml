@@ -1,10 +1,10 @@
 data:
   connectorType: source
   definitionId: fadbf29d-554c-4eff-ac9e-d1cb041629e1
-  dockerImageTag: 0.1.0
+  dockerImageTag: 0.1.1
   dockerRepository: devpablo20/source-instagram-organic
   githubIssueLabel: source-instagram-organic
   name: Instagram Organic
   releaseStage: alpha
-  documentationUrl: https://github.com/DevPablo20/source_instagram_organic
+  documentationUrl: https://github.com/DevPablo20/source_instagram_organic/blob/main/docs/airbyte.md
   supportLevel: community

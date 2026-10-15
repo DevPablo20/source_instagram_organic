@@ -5,6 +5,8 @@ conta, insights, demografia, mídia (feed, carrossel e reels), stories e coment�
 janela de extração configurável e snapshot datado. Substitui o `source-instagram` oficial,
 que só tem incremental em `user_insights` e relê as 2.722 mídias das contas a cada sync.
 
+**Guia de uso (streams, métricas e configuração): [docs/airbyte.md](docs/airbyte.md).**
+
 Escopo, regras e decisões: [CLAUDE.md](CLAUDE.md) ·
 [docs/docs.md](docs/docs.md) · [docs/metrics.md](docs/metrics.md) ·
 [docs/plans/connector-v1.md](docs/plans/connector-v1.md)
@@ -79,11 +81,11 @@ cp .env.example .env            # preencha; secrets/config.json é gerado a part
 ## Publicação
 
 ```bash
-docker build -t devpablo20/source-instagram-organic:0.1.0 -t devpablo20/source-instagram-organic:latest .
+docker build -t devpablo20/source-instagram-organic:0.1.1 -t devpablo20/source-instagram-organic:latest .
 ```
 
 ```bash
-docker push devpablo20/source-instagram-organic:0.1.0
+docker push devpablo20/source-instagram-organic:0.1.1
 ```
 
 No Airbyte: Settings → Sources → New connector → nome `Instagram Organic`, imagem

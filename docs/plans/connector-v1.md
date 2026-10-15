@@ -7,9 +7,9 @@ medição fica aqui, nunca em `docs/*.md`.
 **Status:** passos 1 a 7 entregues (código completo, 9 streams lidas contra a API real,
 imagem Docker construída e validada localmente). Falta publicar a imagem e registrar o
 conector no Airbyte — nada disso foi feito ainda.
-**Próxima ação:** publicar `devpablo20/source-instagram-organic:0.1.0` no Docker Hub e
-registrar o conector no Airbyte de desenvolvimento (passo 7b), depois rodar um sync real
-contra o MinIO. Em paralelo e por conta do Pablo, a P1b.
+**Próxima ação:** passo 7c — registrar o conector no Airbyte de desenvolvimento e criar a
+primeira conexão da Texaco, depois o sync real contra o MinIO. Em paralelo e por conta do
+Pablo, a P1b.
 
 ## Ambientes
 
@@ -70,6 +70,8 @@ Instagram ligada. Total de mídia histórica: **2.722**.
 | D27 | **`media_metrics` não respeita `insights_max_age_days`** | 2026-10-15 | contador sobrevive à retenção que destrói `reach` e `views`, e vem de graça na listagem de `/media` |
 | D28 | **Subcode `2207086` vira `facebook_views = 0`**, não nulo | 2026-10-15 | é "não foi publicação cruzada", logo não houve reprodução no Facebook. Nulo quebraria o `paid` em 30 das 81 mídias |
 | D29 | **`reach` também em `period=week` e `days_28`**, e coluna `period` na chave de `account_insights` | 2026-10-15 | somar alcance diário infla 1,33×; alcance de período só existe se a API entregar deduplicado |
+| D30 | **A documentação do conector vive nas descrições da spec**, não no painel do Airbyte | 2026-10-15 | o painel não renderiza URL externa em conector custom (ver medição); a descrição de campo renderiza e fica onde a decisão é tomada |
+| D31 | `documentationUrl` aponta para `docs/airbyte.md` no GitHub; versão sobe para **0.1.1** | 2026-10-15 | mudança de spec é mudança de conector |
 
 ## Pendências
 
@@ -124,8 +126,9 @@ Cada passo termina com algo verificável. Nenhum passo começa antes do anterior
 | 5 ✅ | Stories | `story` + `story_insights` com as 13 métricas e tolerância ao `(#10)` de menos de 5 espectadores | story capturada antes de expirar, com `navigation` e `link_clicks` |
 | 6 ✅ | Comentários (autor depende de P1b) | `comment` com janela própria, gate por `comments_count`, respostas por field expansion e autor | comentários da Texaco chegam com thread montada e `username` preenchido |
 | 7 ✅ | Empacotamento | imagem `devpablo20/source-instagram-organic:0.1.0` e `:latest` construídas (627 MB) | `spec` e `check` rodam dentro do container |
-| 7b | Publicação | push no Docker Hub e registro no Airbyte de desenvolvimento | sync real gravando em `raw/airbyte/instagram_organic/{account_id}/{stream}` |
-| 8 | Comparação com o baseline (depende de 7b) | medir duração e volume contra os números de 14/10 | ganho demonstrado, não presumido |
+| 7b ✅ | Publicação da imagem | `devpablo20/source-instagram-organic:0.1.1` e `:latest` no Docker Hub, repositório público | digest `sha256:6f4f7eec…`, 140 MB comprimidos, visível anonimamente |
+| 7c | Registro no Airbyte | conector custom registrado e conexão criada no Airbyte de desenvolvimento | sync real gravando em `raw/airbyte/instagram_organic/{account_id}/{stream}` |
+| 8 | Comparação com o baseline (depende de 7c) | medir duração e volume contra os números de 14/10 | ganho demonstrado, não presumido |
 
 A integração no `binder_etl` (troca do conector no bronze/silver/gold do `instagram_organic`
 e aposentadoria do oficial) é feita **no repositório do `binder_etl`**, não aqui.
@@ -433,9 +436,30 @@ correção a story saía com **zero** linhas; depois, com 16. Como story não se
 conector passou a refazer sozinho qualquer objeto que falhe no lote — o lote não diz qual
 métrica causou o erro, e só o pedido isolado descobre.
 
-**2026-10-15 — imagem Docker.** `devpablo20/source-instagram-organic:0.1.0` e `:latest`,
-627 MB, construídas localmente. `spec` e `check` rodam dentro do container, com o
-`secrets/` montado somente-leitura. **Não publicada.**
+**2026-10-15 — o painel de documentação do Airbyte não aceita URL externa.** Para conector
+custom adicionado por imagem Docker, a documentação oficial do Airbyte diz que o campo
+*Connector documentation URL* serve para **linkar**, não para renderizar: *"This
+documentation will be linked in your connector setting's page"*
+([operator guide](https://docs.airbyte.com/platform/operator-guides/using-custom-connectors)).
+O painel lateral resolve o `documentationUrl` para um markdown **local** do próprio
+Airbyte — comportamento descrito na
+[issue #9015](https://github.com/airbytehq/airbyte/issues/9015) —, e para um conector custom
+esse arquivo não existe, daí o painel vazio. Não foi possível confirmar no código atual: o
+`airbyte-webapp` não está mais no monorepo.
+
+**Conclusão prática:** o lugar que de fato documenta o conector dentro do Airbyte são as
+**descrições dos campos da spec**, que aparecem no formulário de configuração. Foram
+reescritas (155 a 645 caracteres cada, todas preenchidas), e `docs/airbyte.md` passou a ser
+o destino do `documentationUrl` e o texto para a descrição do repositório no Docker Hub.
+
+**2026-10-15 — imagem Docker publicada.** `devpablo20/source-instagram-organic:0.1.1` e
+`:latest` no Docker Hub, repositório **público**, digest `sha256:6f4f7eec…`, 627 MB
+descomprimidos / 140 MB comprimidos. `spec` e `check` rodam dentro do container, com o
+`secrets/` montado somente-leitura. A maioria das camadas foi reaproveitada do
+`source-facebook-organic`, que usa a mesma base.
+
+A descrição do repositório no Docker Hub está **vazia** — é o único lugar onde o conteúdo de
+[airbyte.md](../airbyte.md) renderiza de verdade para quem for instalar.
 
 ## Diário
 

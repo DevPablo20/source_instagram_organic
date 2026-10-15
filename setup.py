@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="source_instagram_organic",
-    version="0.1.0",
+    version="0.1.1",
     description="Conector Airbyte para conteúdo orgânico de contas do Instagram",
     author="Binder",
     packages=find_packages(exclude=("tests",)),
