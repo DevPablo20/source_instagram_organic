@@ -7,9 +7,8 @@ medição fica aqui, nunca em `docs/*.md`.
 **Status:** passos 1 a 7 entregues (código completo, 9 streams lidas contra a API real,
 imagem Docker construída e validada localmente). Falta publicar a imagem e registrar o
 conector no Airbyte — nada disso foi feito ainda.
-**Próxima ação:** passo 7c — registrar o conector no Airbyte de desenvolvimento e criar a
-primeira conexão da Texaco, depois o sync real contra o MinIO. Em paralelo e por conta do
-Pablo, a P1b.
+**Próxima ação:** passo 7d — criar o source da Texaco e a conexão diária, depois o primeiro
+sync real contra o MinIO. Em paralelo e por conta do Pablo, a P1b.
 
 ## Ambientes
 
@@ -127,8 +126,9 @@ Cada passo termina com algo verificável. Nenhum passo começa antes do anterior
 | 6 ✅ | Comentários (autor depende de P1b) | `comment` com janela própria, gate por `comments_count`, respostas por field expansion e autor | comentários da Texaco chegam com thread montada e `username` preenchido |
 | 7 ✅ | Empacotamento | imagem `devpablo20/source-instagram-organic:0.1.0` e `:latest` construídas (627 MB) | `spec` e `check` rodam dentro do container |
 | 7b ✅ | Publicação da imagem | `devpablo20/source-instagram-organic:0.1.1` e `:latest` no Docker Hub, repositório público | digest `sha256:6f4f7eec…`, 140 MB comprimidos, visível anonimamente |
-| 7c | Registro no Airbyte | conector custom registrado e conexão criada no Airbyte de desenvolvimento | sync real gravando em `raw/airbyte/instagram_organic/{account_id}/{stream}` |
-| 8 | Comparação com o baseline (depende de 7c) | medir duração e volume contra os números de 14/10 | ganho demonstrado, não presumido |
+| 7c ✅ | Registro no Airbyte | conector custom `Instagram Organic`, tag 0.1.1, registrado no Airbyte de desenvolvimento | aceito; *open docs* abre o guia |
+| 7d | Source e conexão | source da Texaco e conexão diária | sync real gravando em `raw/airbyte/instagram_organic/{account_id}/{stream}` |
+| 8 | Comparação com o baseline (depende de 7d) | medir duração e volume contra os números de 14/10 | ganho demonstrado, não presumido |
 
 A integração no `binder_etl` (troca do conector no bronze/silver/gold do `instagram_organic`
 e aposentadoria do oficial) é feita **no repositório do `binder_etl`**, não aqui.
@@ -458,8 +458,10 @@ descomprimidos / 140 MB comprimidos. `spec` e `check` rodam dentro do container,
 `secrets/` montado somente-leitura. A maioria das camadas foi reaproveitada do
 `source-facebook-organic`, que usa a mesma base.
 
-A descrição do repositório no Docker Hub está **vazia** — é o único lugar onde o conteúdo de
-[airbyte.md](../airbyte.md) renderiza de verdade para quem for instalar.
+**O painel de documentação confirmou o esperado:** com o conector registrado, o campo vira
+um botão *open docs* que abre a URL; nada é renderizado dentro do Airbyte. O
+`full_description` do Docker Hub recebeu o [airbyte.md](../airbyte.md) (13.910 caracteres),
+então o link leva ao guia completo. A descrição curta do repositório segue vazia.
 
 ## Diário
 
