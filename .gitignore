@@ -1,0 +1,17 @@
+.env
+.venv/
+secrets/
+secrets.yaml
+__pycache__/
+*.py[cod]
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.egg-info/
+
+# artefatos de desenvolvimento (catálogo e state de leituras manuais)
+catalog*.json
+state.json

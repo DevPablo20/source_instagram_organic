@@ -1,0 +1,114 @@
+{
+  "documentationUrl": "https://github.com/DevPablo20/source_instagram_organic",
+  "connectionSpecification": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Instagram Organic Source Spec",
+    "type": "object",
+    "required": ["access_token", "instagram_business_account_id", "start_date"],
+    "properties": {
+      "access_token": {
+        "type": "string",
+        "title": "Access token",
+        "description": "Token de usuário de sistema do Business Manager. Permissões: instagram_basic, instagram_manage_insights, pages_show_list, pages_read_engagement, business_management. Para o autor do comentário, também instagram_manage_comments e a task Atividade da comunidade na página ligada.",
+        "airbyte_secret": true,
+        "order": 0
+      },
+      "instagram_business_account_id": {
+        "type": "string",
+        "title": "Instagram business account ID",
+        "description": "Uma conta por conexão. O id sai de /me/accounts?fields=instagram_business_account{id,username}.",
+        "examples": ["17841408010423009"],
+        "order": 1
+      },
+      "start_date": {
+        "type": "string",
+        "title": "Start date",
+        "description": "Corte histórico. Data anterior ao limite da plataforma é truncada, não rejeitada.",
+        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+        "examples": ["2025-01-01"],
+        "format": "date",
+        "order": 2
+      },
+      "lookback_window_days": {
+        "type": "integer",
+        "title": "Lookback de mídia (dias)",
+        "description": "Idade máxima de mídia que ainda tem insights e contadores reextraídos. Mídia mais antiga fica congelada.",
+        "default": 28,
+        "minimum": 1,
+        "order": 3
+      },
+      "account_lookback_days": {
+        "type": "integer",
+        "title": "Lookback de conta (dias)",
+        "description": "Quantos dias de insights de conta são relidos a cada sync. A Meta fecha o número do dia em até 48h.",
+        "default": 7,
+        "minimum": 1,
+        "order": 4
+      },
+      "insights_max_age_days": {
+        "type": "integer",
+        "title": "Idade máxima para insights de mídia (dias)",
+        "description": "Acima desta idade a plataforma já degradou o número — alcance de 1.666 volta como 81 e visualizações voltam 0. Mídia mais velha não é consultada, para não gravar o valor degradado como se fosse o atual. Os contadores de media_metrics não respeitam este teto.",
+        "default": 700,
+        "minimum": 1,
+        "order": 5
+      },
+      "comment_window_days": {
+        "type": "integer",
+        "title": "Janela de comentários (dias)",
+        "description": "Idade máxima de mídia que continua sendo vigiada por comentários novos.",
+        "default": 90,
+        "minimum": 1,
+        "order": 6
+      },
+      "include_replies": {
+        "type": "boolean",
+        "title": "Incluir respostas de comentário",
+        "description": "As respostas vêm por field expansion, na mesma stream, ligadas por parent_id.",
+        "default": true,
+        "order": 7
+      },
+      "demographics_timeframe": {
+        "type": "string",
+        "title": "Janela da demografia de seguidores",
+        "default": "last_30_days",
+        "enum": ["last_14_days", "last_30_days", "last_90_days", "prev_month", "this_month", "this_week"],
+        "order": 8
+      },
+      "api_version": {
+        "type": "string",
+        "title": "Versão da Graph API",
+        "default": "v26.0",
+        "order": 9
+      },
+      "account_metrics": {
+        "type": "array",
+        "title": "Métricas de conta",
+        "description": "Vazio usa a lista validada contra a API. Métrica inexistente é descartada com aviso.",
+        "items": {"type": "string"},
+        "order": 10
+      },
+      "media_metrics_feed": {
+        "type": "array",
+        "title": "Métricas de mídia (FEED)",
+        "description": "Imagem e carrossel. Vazio usa a lista validada.",
+        "items": {"type": "string"},
+        "order": 11
+      },
+      "media_metrics_reels": {
+        "type": "array",
+        "title": "Métricas de mídia (REELS)",
+        "description": "Vazio usa a lista validada. FEED e REELS aceitam listas diferentes; pedir a errada derruba o request.",
+        "items": {"type": "string"},
+        "order": 12
+      },
+      "story_metrics": {
+        "type": "array",
+        "title": "Métricas de story",
+        "description": "Vazio usa a lista validada.",
+        "items": {"type": "string"},
+        "order": 13
+      }
+    }
+  }
+}

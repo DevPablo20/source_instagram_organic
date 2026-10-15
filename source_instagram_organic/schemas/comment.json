@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "business_account_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "page_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "extracted_at": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time",
+      "airbyte_type": "timestamp_with_timezone"
+    },
+    "comment_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "media_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "parent_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "timestamp": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time",
+      "airbyte_type": "timestamp_with_timezone"
+    },
+    "text": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "like_count": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "hidden": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "username": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "from_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

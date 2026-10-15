@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "business_account_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "page_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "extracted_at": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time",
+      "airbyte_type": "timestamp_with_timezone"
+    },
+    "snapshot_date": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date"
+    },
+    "story_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "timestamp": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time",
+      "airbyte_type": "timestamp_with_timezone"
+    },
+    "media_type": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "media_product_type": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "permalink": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "shortcode": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "caption": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  }
+}

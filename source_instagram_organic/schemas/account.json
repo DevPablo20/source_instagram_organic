@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "business_account_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "page_id": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "extracted_at": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time",
+      "airbyte_type": "timestamp_with_timezone"
+    },
+    "snapshot_date": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date"
+    },
+    "username": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "name": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "biography": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "website": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "followers_count": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "follows_count": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "media_count": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "is_published": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    },
+    "has_profile_pic": {
+      "type": [
+        "null",
+        "boolean"
+      ]
+    }
+  }
+}
