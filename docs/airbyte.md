@@ -5,8 +5,8 @@ Conector de conteúdo **orgânico** de contas profissionais do Instagram, com o
 oficial.
 
 Este guia é para quem configura o source no Airbyte e para quem consome as tabelas. O
-contrato técnico detalhado está em [streams.md](streams.md); a lista crua de métricas, em
-[metrics.md](metrics.md).
+contrato técnico detalhado está em [streams.md](https://github.com/DevPablo20/source_instagram_organic/blob/main/docs/streams.md); a lista crua de métricas, em
+[metrics.md](https://github.com/DevPablo20/source_instagram_organic/blob/main/docs/metrics.md).
 
 ---
 
